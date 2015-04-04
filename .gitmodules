@@ -1,0 +1,6 @@
+[submodule "ext/h2o_http2/h2o"]
+	path = ext/h2o_http2/h2o
+	url = git://github.com/h2o/h2o.git
+[submodule "vendor/h2o"]
+	path = vendor/h2o
+	url = git://github.com/h2o/h2o.git
