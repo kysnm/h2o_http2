@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["kysnm"]
   spec.email         = ["tokyoincidents.g@gmail.com"]
   spec.extensions    = ["ext/h2o_http2/extconf.rb"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{ruby bindings of h2o simple http2 server}
+  spec.description   = %q{}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rake-compiler"
   spec.add_development_dependency "rspec"
-  
+
   # get an array of submodule dirs by executing 'pwd' inside each submodule
   `git submodule --quiet foreach pwd`.split($\).each do |submodule_path|
     # for each submodule, change working directory to that submodule

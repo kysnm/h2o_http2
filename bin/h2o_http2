@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require 'h2o_http2'
+
+options = {port: 7890}
+
+opts = OptionParser.new
+opts.banner = "Usage: racer [options]"
+
+opts.on "-p PORT", "--port PORT", "Port to listen on" do |p|
+  options[:port] = p.to_i
+end
+
+opts.parse!(ARGV)
+
+server = H2oHttp2::Server.new(options[:port])
+server.run
