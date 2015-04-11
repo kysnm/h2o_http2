@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.extensions    = ["ext/h2o_http2/extconf.rb"]
   spec.summary       = %q{ruby bindings of h2o simple http2 server}
   spec.description   = %q{}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/kysnm/h2o_http2"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
