@@ -7,17 +7,32 @@ $CFLAGS << " -g"
 $CFLAGS << " -O3" unless $CFLAGS[/-O\d/]
 $CFLAGS << " -Wall -Wno-comment"
 
-$LDFLAGS << " -L`brew --prefix openssl`/lib"
-$CPPFLAGS << " -I`brew --prefix openssl`/include"
-
 CWD = File.expand_path(File.dirname(__FILE__))
+OPENSSL_DIR = File.join(CWD, 'openssl')
+OPENSSL_BUILD_DIR = File.join(CWD, 'openssl-build')
 H2O_DIR = File.join(CWD, 'h2o')
+
+$LDFLAGS << " -L#{OPENSSL_BUILD_DIR}/lib"
+$CPPFLAGS << " -I#{OPENSSL_BUILD_DIR}/include"
+
+Dir.mkdir(OPENSSL_BUILD_DIR) if !Dir.exists?(OPENSSL_BUILD_DIR)
+
+Dir.chdir OPENSSL_DIR do
+  case RUBY_PLATFORM
+  when /darwin/i
+    system "./Configure darwin64-x86_64-cc --prefix=#{OPENSSL_BUILD_DIR}"
+  else
+    system "./config --prefix=#{OPENSSL_BUILD_DIR}"
+  end
+  system 'make'
+  system 'make install'
+end
 
 Dir.chdir H2O_DIR do
   Dir.mkdir("build") if !Dir.exists?("build")
 
   Dir.chdir("build") do
-    system 'cmake -DOPENSSL_ROOT_DIR=`brew --prefix openssl` -DOPENSSL_LIBRARIES=`brew --prefix openssl`/lib ..'
+    system "cmake -DOPENSSL_ROOT_DIR=#{OPENSSL_BUILD_DIR} -DOPENSSL_LIBRARIES=#{OPENSSL_BUILD_DIR}/lib .."
     system 'make libh2o'
   end
 end
